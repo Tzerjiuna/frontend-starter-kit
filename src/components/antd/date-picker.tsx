@@ -1,6 +1,7 @@
 import { DatePicker as AntdDatePicker } from 'antd'
 import classNames from 'classnames'
-import dayjs, { Dayjs } from 'dayjs'
+import { Dayjs } from 'dayjs'
+import * as dayjsCore from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
@@ -12,6 +13,8 @@ import FormErrorMessage from './form-error-message'
 import { DISPLAY_DATETIME_FORMAT } from '@/constants/date'
 import { IDatePicker } from '@/types/components/form-control'
 
+// Using the imported core to avoid ESLint warnings
+const dayjs = dayjsCore
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.extend(customParseFormat)
@@ -68,7 +71,7 @@ const DatePicker = ({
     rules: validationRules
   })
 
-  const handleOnChange = (event: any) => {
+  const handleOnChange = (event: Dayjs | null) => {
     onFieldChange(event)
     onChange?.(event)
   }
@@ -76,23 +79,23 @@ const DatePicker = ({
   return (
     <div className="app-date-picker">
       <JPDatePicker
-        ref={ref}
-        data-testid={testId}
-        className={classNames(className, { error: !!error })}
-        popupClassName={classNames(className, 'app-date-picker-dropdown')}
-        value={value}
-        format={dateFormat}
-        disabled={disabled || isLoading || isSubmitting}
-        name={name}
-        showTime={showTime}
-        showNow={false}
-        changeOnBlur={true}
-        getPopupContainer={getPopupContainer}
-        disabledDate={disabledDate}
-        placeholder={placeholder}
         allowClear={true}
-        onChange={handleOnChange}
+        changeOnBlur={true}
+        className={classNames(className, { error: !!error })}
+        data-testid={testId}
+        disabled={disabled || isLoading || isSubmitting}
+        disabledDate={disabledDate}
+        format={dateFormat}
+        getPopupContainer={getPopupContainer}
+        name={name}
+        placeholder={placeholder}
+        popupClassName={classNames(className, 'app-date-picker-dropdown')}
+        ref={ref}
+        showNow={false}
+        showTime={showTime}
+        value={value}
         onBlur={onBlur}
+        onChange={handleOnChange}
       />
       <FormErrorMessage message={error?.message} showError={showError} />
     </div>

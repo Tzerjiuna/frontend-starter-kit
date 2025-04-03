@@ -9,7 +9,6 @@ import { AntdConfigProvider, AntdProvider } from './providers'
 import { SiteHeader } from '@/components/layout/site-header'
 import { SiteSider } from '@/components/layout/site-sider'
 import { siteConfig } from '@/config/site'
-import { fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
 import { ParamProps } from '@/types/common'
 
@@ -29,12 +28,9 @@ export default async function RootLayout({
   params: ParamProps
 }) {
   return (
-    <html lang={lng} suppressHydrationWarning>
+    <html suppressHydrationWarning lang={lng}>
       <head />
-      <body
-        className={cn('bg-background font-sans antialiased overflow-y-hidden', fontSans.variable)}
-        suppressHydrationWarning
-      >
+      <body suppressHydrationWarning className={cn('bg-background font-sans antialiased overflow-y-hidden')}>
         <NextTopLoader showSpinner={false} />
 
         <AntdProvider>

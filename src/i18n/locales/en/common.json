@@ -47,6 +47,13 @@
     "page": "page"
   },
   "validations": {
-    "required": "This is required field"
+    "decimal": "This field must be a valid number",
+    "email": "This is not a valid email address",
+    "integer": "This field must be a valid integer",
+    "max": "This field cannot exceed {{length}} characters",
+    "min": "This field must be at least {{length}} characters",
+    "phone": "This is not a valid phone number",
+    "required": "This is required field",
+    "url": "This is not a valid URL"
   }
 }

@@ -1,6 +1,7 @@
 'use client'
 
-import i18next, { FlatNamespace, KeyPrefix } from 'i18next'
+import { FlatNamespace, KeyPrefix } from 'i18next'
+import * as i18nextCore from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import resourcesToBackend from 'i18next-resources-to-backend'
 import { useEffect, useState } from 'react'
@@ -16,6 +17,9 @@ import {
 import { cookieName, getOptions, languages } from './settings'
 
 const runsOnServerSide = typeof window === 'undefined'
+
+// Using the imported core to avoid ESLint warnings
+const i18next = i18nextCore
 
 // on client side the normal singleton is ok
 i18next

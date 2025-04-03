@@ -10,7 +10,7 @@ export default async function Page({ params: { lng } }: { params: ParamProps }) 
   return (
     <div className="flex flex-col gap-4 m-4">
       <div className="flex justify-between">
-        <PageTitle title={t('post:pageTitle.addPost')} lng={lng} />
+        <PageTitle lng={lng} title={t('post:pageTitle.addPost')} />
       </div>
 
       <hr />

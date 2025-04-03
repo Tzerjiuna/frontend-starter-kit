@@ -1,22 +1,9 @@
-import { getSession } from '@/actions/session'
 import { NextRequest, NextResponse } from 'next/server'
 
-import { absoluteUrl } from '@/lib/utils'
-
-export interface MfidTokenRequest {
-  code: string
-  nonce: string
-  redirect_uri: string
-}
-
-export interface MfidTokenResponse {
-  token_type: string
-  access_token: string
-  refresh_token: string
-  id_token: string
-  expires_in: number
-  scope: string
-}
+import { getSession } from '@/actions/session'
+import { MfidTokenRequest } from '@/api/auth/queries'
+import { logger } from '@/lib/logger'
+import { IMfidTokenResponse } from '@/lib/mocks/mock-data/auth'
 
 export async function GET(req: NextRequest) {
   const state = req.nextUrl.searchParams.get('state') as string
@@ -34,9 +21,8 @@ export async function GET(req: NextRequest) {
     redirect_uri: session.redirectUrl || ''
   }
 
-  // Call the token API if the states match
   try {
-    const res = await fetch(absoluteUrl('/auth/mfid/token'), {
+    const res = await fetch(`${req.nextUrl.origin}/api/auth/mfid/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -45,7 +31,7 @@ export async function GET(req: NextRequest) {
     })
 
     if (res.status === 201) {
-      const data = (await res.json()) as MfidTokenResponse
+      const data = (await res.json()) as IMfidTokenResponse
       session.accessToken = data.access_token
       session.refreshToken = data.refresh_token
       await session.save()
@@ -53,7 +39,9 @@ export async function GET(req: NextRequest) {
       const homeUrl = new URL(req.nextUrl.origin)
       return NextResponse.redirect(homeUrl)
     }
-  } catch (_) {}
+  } catch (error) {
+    logger.error('Error fetching MFID token:', error)
+  }
 
   return NextResponse.redirect(loginUrl)
 }

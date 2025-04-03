@@ -47,23 +47,23 @@ function LngMiddleware(req: NextRequest) {
   return
 }
 
+// Define public paths that don't require authentication
 const publicPaths = ['/user/login', '/logout']
 
+// Create localized versions of the public paths
 const lngPublicPaths = languages.flatMap(lng => publicPaths.map(path => `/${lng}${path}`))
 
-async function AuthMiddleware(req: NextRequest) {
-  if (!lngPublicPaths.includes(req.nextUrl.pathname)) {
-    const session = await getSession()
-    if (!session.accessToken) {
-      return NextResponse.redirect(new URL(`/user/login?redirect=${req.nextUrl.pathname}`, req.url))
-    }
+async function AuthMiddleware(_req: NextRequest) {
+  const session = await getSession()
+
+  // If user is already logged in and trying to access public paths, redirect them to home page
+  if (session.accessToken && lngPublicPaths.some(path => _req.nextUrl.pathname.startsWith(path))) {
+    return NextResponse.redirect(new URL(`/${fallbackLng}`, _req.url))
   }
 
-  if (lngPublicPaths.includes(req.nextUrl.pathname)) {
-    const session = await getSession()
-    if (session.accessToken) {
-      return NextResponse.redirect(new URL(`/`, req.url))
-    }
+  // If not logged in and trying to access protected paths, redirect to login
+  if (!session.accessToken && !lngPublicPaths.some(path => _req.nextUrl.pathname.startsWith(path))) {
+    return NextResponse.redirect(new URL(`/${fallbackLng}/user/login?redirect=${_req.nextUrl.pathname}`, _req.url))
   }
 
   return

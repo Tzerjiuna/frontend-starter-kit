@@ -29,11 +29,11 @@ const Input = ({
         <div className="app-input">
           <AntdInput
             {...restField}
+            className={classNames(className, { error: !!error })}
             data-testid={testId}
+            disabled={disabled || isSubmitting}
             placeholder={placeholder}
             type="text"
-            className={classNames(className, { error: !!error })}
-            disabled={disabled || isSubmitting}
             onChange={event => {
               onFieldChange(event)
               onChange?.(event)

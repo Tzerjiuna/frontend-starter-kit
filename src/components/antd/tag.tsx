@@ -30,13 +30,13 @@ const Tag = ({
         <div className="app-input">
           <Select
             {...restField}
-            data-testid={testId}
-            mode="tags"
-            style={{ width: '100%' }}
-            placeholder={placeholder}
-            options={options}
             className={classNames(className, { error: !!error })}
+            data-testid={testId}
             disabled={disabled || isSubmitting}
+            mode="tags"
+            options={options}
+            placeholder={placeholder}
+            style={{ width: '100%' }}
             onChange={value => {
               onFieldChange(value)
               onChange?.(value)

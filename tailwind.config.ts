@@ -1,7 +1,5 @@
 import type { Config } from 'tailwindcss'
 
-const { fontFamily } = require('tailwindcss/defaultTheme')
-
 const config: Config = {
   darkMode: ['class'],
   content: [
@@ -20,7 +18,26 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-sans)', ...fontFamily.sans]
+        sans: [
+          'system-ui',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'sans-serif'
+        ],
+        mono: [
+          'ui-monospace',
+          'SFMono-Regular',
+          'Menlo',
+          'Monaco',
+          'Consolas',
+          'Liberation Mono',
+          'Courier New',
+          'monospace'
+        ]
       },
       fontSize: {
         xs: '0.625rem', // 10px

@@ -7,14 +7,14 @@ class CurrencyText extends PureComponent<{ className?: string; value: number | s
     const { value, className } = this.props
     return (
       <NumericFormat
-        value={value}
-        valueIsNumericString={true}
+        displayType="text"
+        prefix="¥"
         renderText={value => {
           return <div className={classNames('text-right', className)}>{value}</div>
         }}
-        prefix="¥"
         thousandSeparator=","
-        displayType="text"
+        value={value}
+        valueIsNumericString={true}
       />
     )
   }

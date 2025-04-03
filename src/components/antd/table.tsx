@@ -4,10 +4,8 @@ import classNames from 'classnames'
 // https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forward_and_create_ref/
 function Table<T>({ className, pagination, ...props }: TableProps<T>) {
   return (
-    <AntdTable<any>
+    <AntdTable<T>
       className={classNames('app-table', className)}
-      tableLayout="fixed"
-      size="small"
       pagination={{
         ...pagination,
         simple: true,
@@ -16,6 +14,8 @@ function Table<T>({ className, pagination, ...props }: TableProps<T>) {
         pageSize: 25,
         showSizeChanger: false
       }}
+      size="small"
+      tableLayout="fixed"
       {...props}
     />
   )

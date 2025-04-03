@@ -2,7 +2,7 @@
 
 import { Button, Dropdown } from 'antd'
 import Link from 'next/link'
-import { ReactNode, useState } from 'react'
+import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ChevronDownIcon } from '../icons'
@@ -32,7 +32,7 @@ const TenantDropdown = () => {
 
   return (
     <Dropdown
-      overlayStyle={{ width: 300 }}
+      dropdownRender={dropdownRender}
       menu={{
         items: [
           {
@@ -45,8 +45,8 @@ const TenantDropdown = () => {
           }
         ]
       }}
+      overlayStyle={{ width: 300 }}
       placement="topRight"
-      dropdownRender={dropdownRender}
       trigger={['click']}
     >
       <div className="header-dropdown">

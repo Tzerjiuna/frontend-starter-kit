@@ -3,7 +3,7 @@ import { Button } from 'antd'
 import Link from 'next/link'
 
 import PostTable from './post-table'
-import { SearchParams, getPosts } from '@/lib/api/post'
+import { SearchParams, getPosts } from '@/api/posts'
 import { ParamProps } from '@/types/common'
 
 export default async function Page({
@@ -28,7 +28,7 @@ export default async function Page({
 
       <hr />
 
-      {postsRes && <PostTable lng={lng} posts={postsRes.data} pagination={postsRes.meta} />}
+      {postsRes && <PostTable lng={lng} pagination={postsRes.meta} posts={postsRes.data} />}
     </div>
   )
 }

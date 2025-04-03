@@ -1,16 +1,16 @@
 'use client'
 
-import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, Form, SelectProps } from 'antd'
 import { useRouter } from 'next/navigation'
 import { useMemo } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
-import * as yup from 'yup'
+import { Control, FieldValues, FormProvider } from 'react-hook-form'
+import { z } from 'zod'
 
 import Input from '@/components/antd/input'
 import Tag from '@/components/antd/tag'
 import { addBasePathPrefix } from '@/helpers/basePath'
 import { useClientTranslation } from '@/i18n/client'
+import { useZodForm, validators } from '@/lib/utils/form-utils'
 import { IPost, IPostFormValues } from '@/types/post'
 
 const options: SelectProps['options'] = [
@@ -69,22 +69,20 @@ export default function PostForm({ lng, data }: { lng: string; data?: IPost }) {
 
   const [form] = Form.useForm()
 
-  const formValidationSchema = useMemo(
-    () =>
-      yup.object().shape({
-        title: yup.string().required(t('common:validations.required') as string),
-        content: yup.string().required(t('common:validations.required') as string)
-      }),
-    [t]
-  )
+  const formSchema = useMemo(() => {
+    return z.object({
+      title: validators.required('Title', t),
+      author: z.string(),
+      content: validators.required('Content', t),
+      tags: z.array(z.string())
+    })
+  }, [t])
 
-  const formModule = useForm<IPostFormValues>({
-    defaultValues: data || defaultValues,
-    reValidateMode: 'onSubmit',
-    resolver: yupResolver(formValidationSchema)
-  })
+  const formModule = useZodForm(formSchema, data || defaultValues)
 
-  const { control, handleSubmit } = formModule
+  const { control: typedControl, handleSubmit } = formModule
+  // Double-cast to avoid TypeScript error
+  const control = typedControl as unknown as Control<FieldValues>
 
   const isEdit = !!(data && data.id)
 
@@ -115,33 +113,33 @@ export default function PostForm({ lng, data }: { lng: string; data?: IPost }) {
   return (
     <div className="w-[600px] py-4">
       <Form
-        form={form}
         className="app-form"
+        colon={false}
+        data-testid="announcement-form"
+        form={form}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
-        colon={false}
         onFinish={handleSubmit(onSubmitValid)}
-        data-testid="announcement-form"
       >
         <FormProvider {...formModule}>
-          <Form.Item label={t('fields.title')} required>
-            <Input name="title" control={control} placeholder={t('placeholder.title')} testId="title" />
+          <Form.Item required label={t('fields.title')}>
+            <Input control={control} name="title" placeholder={t('placeholder.title')} testId="title" />
           </Form.Item>
 
           <Form.Item label={t('fields.author')}>
-            <Input name="author" control={control} placeholder={t('placeholder.author')} testId="author" />
+            <Input control={control} name="author" placeholder={t('placeholder.author')} testId="author" />
           </Form.Item>
 
-          <Form.Item label={t('fields.content')} required>
-            <Input name="content" control={control} placeholder={t('placeholder.content')} testId="content" />
+          <Form.Item required label={t('fields.content')}>
+            <Input control={control} name="content" placeholder={t('placeholder.content')} testId="content" />
           </Form.Item>
 
           <Form.Item label={t('fields.tags')}>
-            <Tag options={options} name="tags" control={control} placeholder={t('placeholder.tags')} testId="tags" />
+            <Tag control={control} name="tags" options={options} placeholder={t('placeholder.tags')} testId="tags" />
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button size="large" type="primary" htmlType="submit" data-testid="submit-button">
+            <Button data-testid="submit-button" htmlType="submit" size="large" type="primary">
               {t(`actions.${isEdit ? 'save' : 'add'}`)}
             </Button>
           </Form.Item>

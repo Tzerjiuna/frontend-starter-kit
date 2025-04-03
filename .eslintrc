@@ -1,23 +1,38 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "jest": true,
+    "node": true
   },
-  "extends": ["plugin:@typescript-eslint/recommended", "next", "next/core-web-vitals", "prettier"],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "next",
+    "next/core-web-vitals",
+    "prettier",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 12,
+    "ecmaVersion": 2021,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "import", "tailwindcss"],
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
   "rules": {
-    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/explicit-module-boundary-types": 0,
-    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-non-null-assertion": "warn",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
@@ -31,6 +46,14 @@
     "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/no-namespace": 0,
     "@typescript-eslint/no-var-requires": 0,
+    "import/order": [
+      "warn",
+      {
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+        "newlines-between": "always",
+        "alphabetize": { "order": "asc", "caseInsensitive": true }
+      }
+    ],
     "no-console": "warn",
     "no-var": "error",
     "prettier/prettier": [
@@ -55,6 +78,10 @@
     ],
     "max-params": ["error", 4],
     "max-depth": ["error", 4],
+    "react/jsx-sort-props": ["warn", { 
+      "callbacksLast": true, 
+      "shorthandFirst": true 
+    }],
     "@next/next/no-sync-scripts": "off"
   }
 }

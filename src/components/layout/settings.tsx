@@ -1,4 +1,4 @@
-import { ItemType } from 'antd/es/menu/hooks/useItems'
+import { MenuProps } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 import { PostIcon, SettingIcon, UserIcon } from '../icons'
@@ -25,7 +25,7 @@ const RenderLabel = ({ langKey }: { langKey: string }) => {
   return <span key={langKey}>{t(langKey)}</span>
 }
 
-export const navItems: ItemType[] = [
+export const navItems: MenuProps['items'] = [
   {
     key: 'post',
     icon: <PostIcon className="sider-icon" />,

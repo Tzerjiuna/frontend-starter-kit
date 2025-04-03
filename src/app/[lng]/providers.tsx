@@ -11,7 +11,7 @@ import { useClientTranslation } from '@/i18n/client'
 export const AntdProvider = ({ children }: React.PropsWithChildren) => {
   const cache = useMemo<Entity>(() => createCache(), [])
 
-  useServerInsertedHTML(() => <style id="antd" dangerouslySetInnerHTML={{ __html: extractStyle(cache, true) }} />)
+  useServerInsertedHTML(() => <style dangerouslySetInnerHTML={{ __html: extractStyle(cache, true) }} id="antd" />)
 
   return (
     <StyleProvider cache={cache} hashPriority="high">
@@ -30,21 +30,17 @@ export const AntdConfigProvider = ({ children }: React.PropsWithChildren) => {
 
   return (
     <ConfigProvider
+      getPopupContainer={defaultGetPopupContainer}
       renderEmpty={() => <Empty description={t('message.noData')} />}
       table={{ className: 'app-table' }}
-      getPopupContainer={defaultGetPopupContainer}
       theme={{
         token: {
-          // fontSize: 16,
           colorPrimary: '#3b7de9',
           colorInfo: '#3b7de9',
           colorError: '#ec4949',
           borderRadius: 4
         },
         components: {
-          // Typography: {
-          //   fontSize: 13
-          // },
           Button: {
             colorBorder: 'rgb(59, 125, 233)',
             colorText: 'rgb(59, 125, 233)',

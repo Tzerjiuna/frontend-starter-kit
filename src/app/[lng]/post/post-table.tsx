@@ -2,6 +2,7 @@
 
 import { App, Button } from 'antd'
 import { ColumnsType } from 'antd/es/table'
+import dayjs from 'dayjs'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useMemo } from 'react'
@@ -9,11 +10,10 @@ import { useCallback, useMemo } from 'react'
 import Table from '@/components/antd/table'
 import { DISPLAY_DATE_FORMAT } from '@/constants/date'
 import { addBasePathPrefix } from '@/helpers/basePath'
-import dayjs from '@/helpers/dayjs'
 import { useClientTranslation } from '@/i18n/client'
+import { updateSearchParams } from '@/lib/utils'
 import { IPagingRes } from '@/types/paging'
 import { IPost } from '@/types/post'
-import { updateSearchParams } from '@/utils/searchParams'
 
 export default function PostTable({
   posts,
@@ -111,10 +111,10 @@ export default function PostTable({
         key: 'actions',
         width: 120,
         className: 'tcell-text-right',
-        render: (_: any, post: IPost) => {
+        render: (_: unknown, post: IPost) => {
           return (
             <div>
-              <Button color="primary" danger onClick={() => handleDeletePost(post.id)}>
+              <Button color="danger" variant="outlined" onClick={() => handleDeletePost(post.id)}>
                 {t('actions.delete')}
               </Button>
               &nbsp;
@@ -126,20 +126,20 @@ export default function PostTable({
         }
       }
     ],
-    [t, handleDeletePost]
+    [t, handleDeletePost, lng]
   )
 
   return (
     <Table
       columns={columns}
       dataSource={posts}
-      rowKey="id"
       pagination={{
         current: currentPage,
         total: pagination?.totalCount,
         showTotal: total => `ページ (${total}件)`,
         onChange: onChangePagination
       }}
+      rowKey="id"
     />
   )
 }

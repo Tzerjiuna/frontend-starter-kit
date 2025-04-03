@@ -1,7 +1,7 @@
-import { getSession } from '@/actions/session'
 import { nanoid } from 'nanoid'
 import { NextRequest } from 'next/server'
 
+import { getSession } from '@/actions/session'
 import { buildMfidAuthUrl, buildRedirectUrl } from '@/lib/mfid'
 
 export async function GET(req: NextRequest) {
