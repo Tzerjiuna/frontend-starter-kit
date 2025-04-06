@@ -1,13 +1,17 @@
 import { MenuProps } from 'antd'
 import { useTranslation } from 'react-i18next'
 
-import { PostIcon, SettingIcon, UserIcon } from '../icons'
+import { AnnouncementIcon, PostIcon, SettingIcon, UserIcon } from '../icons'
 import { RouteConfig } from '@/helpers/routeConfig'
 
 export const routeConfigs: RouteConfig[] = [
   {
     key: 'post',
     path: '/post'
+  },
+  {
+    key: 'announcement',
+    path: '/announcements'
   },
   {
     key: 'user',
@@ -30,6 +34,11 @@ export const navItems: MenuProps['items'] = [
     key: 'post',
     icon: <PostIcon className="sider-icon" />,
     label: <RenderLabel langKey="post" />
+  },
+  {
+    key: 'announcement',
+    icon: <AnnouncementIcon className="sider-icon" />,
+    label: <RenderLabel langKey="announcement" />
   },
   {
     key: 'user',

@@ -35,9 +35,39 @@ i18next
     preload: runsOnServerSide ? languages : []
   })
 
+/**
+ * Hook for using translations in client components
+ *
+ * @param lng - The language code to use (e.g., 'en', 'ja')
+ * @param ns - Namespace or array of namespaces to load
+ * @param options - Additional options for the translation hook
+ *
+ * @returns Translation response object with t function and i18n instance
+ *
+ * @example
+ * // Using default namespace with namespace prefix in the key
+ * const { t } = useClientTranslation('en')
+ * return <button>{t('common:actions.submit')}</button>
+ *
+ * @example
+ * // Basic usage with a single namespace
+ * const { t } = useClientTranslation('en', 'auth')
+ * return <p>{t('heading')}</p>
+ *
+ * @example
+ * // Using multiple namespaces
+ * const { t } = useClientTranslation('en', ['common', 'auth', 'profile'])
+ * return (
+ *   <>
+ *     <p>{t('common:welcome')}</p>
+ *     <button>{t('auth:login')}</button>
+ *     <p>{t('profile:settings')}</p>
+ *   </>
+ * )
+ */
 export function useClientTranslation<Ns extends FlatNamespace, KPrefix extends KeyPrefix<FallbackNs<Ns>> = undefined>(
   lng: string,
-  ns?: Ns,
+  ns?: Ns | Ns[],
   options?: UseTranslationOptions<KPrefix>
 ): UseTranslationResponse<FallbackNs<Ns>, KPrefix> {
   const [cookies, setCookie] = useCookies([cookieName])

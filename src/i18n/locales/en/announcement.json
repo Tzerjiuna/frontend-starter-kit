@@ -1,0 +1,19 @@
+{
+  "columns": {
+    "isDisplay": "Display",
+    "isEmphasize": "Emphasize",
+    "no": "No.",
+    "order": "Order",
+    "publishAt": "Publish Date",
+    "title": "Title"
+  },
+  "pageTitle": {
+    "announcements": "Announcements"
+  },
+  "status": {
+    "display": "Displayed",
+    "emphasize": "Emphasized",
+    "hidden": "Hidden",
+    "normal": "Normal"
+  }
+}

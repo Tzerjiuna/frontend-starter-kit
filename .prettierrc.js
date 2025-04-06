@@ -16,7 +16,7 @@ module.exports = {
   jsonRecursiveSort: true,
   importOrder: [
     '^@core/(.*)$',
-    '(^[./])|^@/(actions|api|components|config|constants|helpers|hooks|i18n|lib|types|utils)/(.*)$',
+    '(^[./])|^@/(components|config|constants|helpers|hooks|i18n|lib|services|tests|types|utils)/(.*)$',
     '.(json)$',
   ],
   importOrderSeparation: true,

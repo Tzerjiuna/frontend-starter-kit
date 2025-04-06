@@ -1,16 +1,16 @@
 'use client'
 
-import { Button, Form, SelectProps } from 'antd'
+import { Button, Form, SelectProps, message } from 'antd'
 import { useRouter } from 'next/navigation'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Control, FieldValues, FormProvider } from 'react-hook-form'
 import { z } from 'zod'
 
 import Input from '@/components/antd/input'
 import Tag from '@/components/antd/tag'
-import { addBasePathPrefix } from '@/helpers/basePath'
 import { useClientTranslation } from '@/i18n/client'
 import { useZodForm, validators } from '@/lib/utils/form-utils'
+import { createPost, updatePost } from '@/services/client/posts'
 import { IPost, IPostFormValues } from '@/types/post'
 
 const options: SelectProps['options'] = [
@@ -66,8 +66,8 @@ const defaultValues: IPostFormValues = {
 export default function PostForm({ lng, data }: { lng: string; data?: IPost }) {
   const { t } = useClientTranslation(lng, 'post')
   const router = useRouter()
-
   const [form] = Form.useForm()
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const formSchema = useMemo(() => {
     return z.object({
@@ -87,26 +87,23 @@ export default function PostForm({ lng, data }: { lng: string; data?: IPost }) {
   const isEdit = !!(data && data.id)
 
   const onSubmitValid = async (formValues: IPostFormValues) => {
-    const payload = formValues
+    setIsSubmitting(true)
 
-    if (!isEdit) {
-      const response = await fetch(addBasePathPrefix('/api/posts'), {
-        method: 'POST',
-        body: JSON.stringify(payload)
-      })
-      if (response.status === 201) {
-        router.push(`/${lng}/post`)
-        router.refresh()
+    try {
+      if (!isEdit) {
+        await createPost(formValues)
+        message.success('Created successfully')
+      } else if (data) {
+        await updatePost(data.id, formValues)
+        message.success('Updated successfully')
       }
-    } else {
-      const response = await fetch(addBasePathPrefix(`/api/posts/${data.id}`), {
-        method: 'PUT',
-        body: JSON.stringify(payload)
-      })
-      if (response.status === 200) {
-        router.push(`/${lng}/post`)
-        router.refresh()
-      }
+
+      router.push(`/${lng}/post`)
+      router.refresh()
+    } catch (error) {
+      message.error(error instanceof Error ? error.message : 'An error occurred')
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -116,6 +113,7 @@ export default function PostForm({ lng, data }: { lng: string; data?: IPost }) {
         className="app-form"
         colon={false}
         data-testid="announcement-form"
+        disabled={isSubmitting}
         form={form}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
@@ -139,8 +137,8 @@ export default function PostForm({ lng, data }: { lng: string; data?: IPost }) {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button data-testid="submit-button" htmlType="submit" size="large" type="primary">
-              {t(`actions.${isEdit ? 'save' : 'add'}`)}
+            <Button htmlType="submit" loading={isSubmitting} type="primary">
+              {t('common:actions.submit')}
             </Button>
           </Form.Item>
         </FormProvider>

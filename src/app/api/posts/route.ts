@@ -1,24 +1,15 @@
-import { StatusCodes } from 'http-status-codes'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { logger } from '@/lib/logger'
-import { createPost } from '@/lib/mocks/mock-data/post'
+import { createPost } from '@/services/client'
 
-// POST method for creating a new post
 export async function POST(request: NextRequest) {
   try {
-    const postData = await request.json()
-
-    // Create a new post using our helper function
-    const newPost = createPost(postData)
-
-    // Return the created post
-    return NextResponse.json({ data: newPost }, { status: StatusCodes.CREATED })
+    const body = await request.json()
+    const post = await createPost(body)
+    return NextResponse.json(post)
   } catch (error) {
     logger.error('Error creating post:', error)
-    return NextResponse.json({ error: 'Failed to create post' }, { status: StatusCodes.INTERNAL_SERVER_ERROR })
+    return NextResponse.json({ error: 'Failed to create post' }, { status: 500 })
   }
 }
-
-// Make this API route dynamic
-export const dynamic = 'force-dynamic'

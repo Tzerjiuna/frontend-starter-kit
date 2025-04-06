@@ -46,14 +46,6 @@
     "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/no-namespace": 0,
     "@typescript-eslint/no-var-requires": 0,
-    "import/order": [
-      "warn",
-      {
-        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
-        "newlines-between": "always",
-        "alphabetize": { "order": "asc", "caseInsensitive": true }
-      }
-    ],
     "no-console": "warn",
     "no-var": "error",
     "prettier/prettier": [

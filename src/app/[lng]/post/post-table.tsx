@@ -1,6 +1,6 @@
 'use client'
 
-import { App, Button } from 'antd'
+import { App, Button, message } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import dayjs from 'dayjs'
 import Link from 'next/link'
@@ -9,9 +9,9 @@ import { useCallback, useMemo } from 'react'
 
 import Table from '@/components/antd/table'
 import { DISPLAY_DATE_FORMAT } from '@/constants/date'
-import { addBasePathPrefix } from '@/helpers/basePath'
 import { useClientTranslation } from '@/i18n/client'
 import { updateSearchParams } from '@/lib/utils'
+import { deletePost } from '@/services/client/posts'
 import { IPagingRes } from '@/types/paging'
 import { IPost } from '@/types/post'
 
@@ -25,7 +25,7 @@ export default function PostTable({
   lng: string
 }) {
   const { t } = useClientTranslation(lng, 'post')
-  const { modal, notification } = App.useApp()
+  const { modal } = App.useApp()
   const router = useRouter()
   const searchParams = useSearchParams()
   const page = searchParams.get('page')
@@ -40,30 +40,20 @@ export default function PostTable({
     [router]
   )
 
-  const deletePost = useCallback(
+  const handleDeletePost = useCallback(
     async (id: string) => {
-      const response = await fetch(addBasePathPrefix(`/api/posts/${id}`), {
-        method: 'DELETE'
-      })
-
-      if (response.ok) {
-        notification.success({
-          message: t('message.deleteSuccess')
-        })
-
+      try {
+        await deletePost(id)
+        message.success(t('message.deleteSuccess'))
         router.refresh()
-
-        return
+      } catch (error) {
+        message.success(t('message.deleteError'))
       }
-
-      notification.error({
-        message: t('message.deleteError')
-      })
     },
-    [t, router, notification]
+    [t, router]
   )
 
-  const handleDeletePost = useCallback(
+  const confirmDeletePost = useCallback(
     (id: string) => {
       modal.confirm({
         className: 'app-modal',
@@ -77,10 +67,10 @@ export default function PostTable({
         },
         closable: true,
         maskClosable: true,
-        onOk: () => deletePost(id)
+        onOk: () => handleDeletePost(id)
       })
     },
-    [t, modal, deletePost]
+    [t, modal, handleDeletePost]
   )
 
   const columns: ColumnsType<IPost> = useMemo(
@@ -114,7 +104,7 @@ export default function PostTable({
         render: (_: unknown, post: IPost) => {
           return (
             <div>
-              <Button color="danger" variant="outlined" onClick={() => handleDeletePost(post.id)}>
+              <Button color="danger" variant="outlined" onClick={() => confirmDeletePost(post.id)}>
                 {t('actions.delete')}
               </Button>
               &nbsp;
@@ -126,7 +116,7 @@ export default function PostTable({
         }
       }
     ],
-    [t, handleDeletePost, lng]
+    [t, confirmDeletePost, lng]
   )
 
   return (

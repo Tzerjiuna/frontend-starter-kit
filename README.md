@@ -1,173 +1,83 @@
 # Frontend Starter Kit
 
-A modern Next.js frontend starter kit with React, TypeScript, Tailwind CSS, and Ant Design.
+A modern frontend starter kit built with Next.js, TypeScript, and Material-UI.
+
+## Features
+
+- ⚡️ Next.js 14 with App Router
+- 🎨 Material-UI (MUI) for UI components
+- 📱 Responsive design
+- 🔒 Authentication with JWT
+- 📊 Data fetching with React Query
+- 🎯 TypeScript for type safety
+- 🧪 Jest for testing
+- 📝 Storybook for component documentation
+- 🎨 Tailwind CSS for styling
+- 🔍 ESLint and Prettier for code quality
+- 🚀 GitHub Actions for CI/CD
 
 ## Getting Started
 
+### Prerequisites
+
+- Node.js 18.x or later
+- yarn
+
+### Installation
+
+1. Clone the repository:
 ```bash
-# Install dependencies
-yarn install
-
-# Run development server
-yarn dev
-
-# Build for production
-yarn build
-
-# Start production server
-yarn start
+git clone https://github.com/yourusername/frontend-starter-kit.git
+cd frontend-starter-kit
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+yarn install
+```
+
+3. Create a `.env.local` file in the root directory and add your environment variables:
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3000/api
+```
+
+4. Start the development server:
+```bash
+yarn dev
+```
+
+5. Run linters and formatters before committing or creating a pull request:
+```bash
+yarn lf
+```
+This command ensures your code adheres to the project's style guidelines.
 
 ## Project Structure
 
 ```
 src/
-├── actions/      # Server Actions for data operations
-├── api/          # API resource modules by domain
-├── app/          # Next.js App Router pages and layouts
-├── components/   # Reusable UI components
-├── lib/          # Core utilities, helpers, and services
-├── hooks/        # Custom React hooks
-├── i18n/         # Internationalization
-├── types/        # TypeScript type definitions
-└── styles/       # Global styles
+├── app/                    # Next.js app directory
+├── components/            # Reusable components
+│   ├── ui/               # UI components
+│   └── layout/           # Layout components
+├── services/             # API services
+│   ├── api/             # API clients
+│   └── core/            # Core services
+├── hooks/               # Custom hooks
+├── utils/               # Utility functions
+├── types/               # TypeScript types
+├── styles/              # Global styles
+└── tests/               # Test files and configuration
 ```
 
-Key directories:
-- `app/` - Organized by feature using Next.js App Router
-- `api/` - Domain-specific API modules
-- `components/` - Reusable UI building blocks
-- `lib/` - Core utilities and services
+## Development
 
-## Code Standards and Best Practices
+### Code Style
 
-### React Components
+- ESLint for linting
+- Prettier for formatting
+- TypeScript for type checking
 
-**Key Principles:**
-- Functional components with hooks
-- Single Responsibility Principle
-- Strong TypeScript typing for props
-- Composition over inheritance
-- Small, reusable components
+## License
 
-### Data Fetching
-
-**Best Practices:**
-- Server Components for initial data loading
-- SWR/React Query for client-side fetching
-- Proper loading and error states
-- Type-safe response handling
-
-### State Management
-
-**Approach:**
-- Local state with useState/useReducer
-- Context API for shared state
-- Zustand for complex state requirements
-- Avoid prop drilling
-
-### UI and Styling
-
-**Guidelines:**
-- Tailwind CSS for component styling
-- Component-specific modules for complex styles
-- Responsive design patterns
-- Accessible UI components (WCAG compliant)
-
-### Testing
-
-**Strategy:**
-- Unit tests for utilities and hooks
-- Component tests with React Testing Library
-- Integration tests for key user flows
-- "Testing Trophy" approach prioritizing integration tests
-
-## Available Scripts
-
-| Command | Description |
-|---------|-------------|
-| `yarn dev` | Development server |
-| `yarn build` | Production build |
-| `yarn start` | Production server |
-| `yarn lint` | Run linter |
-| `yarn lf` | Fix linting and formatting issues |
-| `yarn test` | Run tests |
-| `yarn test-all` | Run all pre-deployment checks |
-
-## Learn More
-
-- [Next.js](https://nextjs.org/docs) - The React framework
-- [React](https://react.dev) - UI library
-- [TypeScript](https://www.typescriptlang.org/docs) - Typed JavaScript
-- [Tailwind CSS](https://tailwindcss.com/docs) - Utility-first CSS
-- [Ant Design](https://ant.design/docs/react/introduce) - UI component library
-
-## API Architecture
-
-This project uses a flexible API architecture that supports both Server-Side Rendering (SSR) and Client-Side Rendering (CSR).
-
-### Data Fetching Patterns
-
-**Server Components:**
-- Direct imports from resource modules
-- Automatic mocking support
-- Type-safe responses with proper error handling
-
-**Client Components:**
-- React hooks (SWR) for data fetching
-- Loading and error states handled automatically
-- Client-side caching for performance
-
-**Data Mutations:**
-- Direct API calls for simple mutations
-- Server Actions for complex operations
-- Automatic revalidation via `router.refresh()`
-
-### API Mocking System
-
-**Key Features:**
-- Toggle with `NEXT_PUBLIC_USE_MOCK_API=true` in `.env`
-- Resource-specific mock handlers in `src/lib/mocks/`
-- Transparent usage in both SSR and CSR contexts
-
-### Best Practices
-
-1. **Resource Isolation:** Domain-specific API modules
-2. **Type Safety:** Strongly typed requests and responses
-3. **Error Handling:** Consistent patterns across the application
-4. **Testing:** Mock-enabled architecture for reliable tests
-
-## Data Flow Architecture: Authentication and Post Domain Examples
-
-This project implements a dual-mode data flow architecture combining Server-Side Rendering (SSR) and Client-Side Rendering (CSR).
-
-### Authentication Flow
-
-**Key Concepts:**
-- Protected routes managed via middleware
-- Iron Session for secure cookie-based session management
-- OAuth 2.0 flow with MFID (external identity provider)
-- Automatic redirection for unauthenticated users
-
-### Post Domain Data Flow
-
-**Server Components (SSR):**
-- Server-rendered pages (`/post`, `/post/[id]`) fetch data during rendering
-- Data fetching via server actions with automatic mocking support
-- Server components pass data down to client components as props
-
-**Client Components (CSR):**
-- Interactive UI elements (`PostForm.tsx`, `PostTable.tsx`) handle user interactions 
-- Data mutations via fetch API or direct API function calls
-- Use of `router.refresh()` to maintain data consistency after mutations
-
-### Key Benefits
-
-1. **Performance & SEO:** Fast initial loads with server-rendered content
-2. **Development:** Integrated mocking system and type safety
-3. **User Experience:** Rich interactive UI with server-data consistency 
-4. **Maintenance:** Clear separation between data fetching and UI logic
-
-This architecture provides a streamlined approach to building full-featured interactive applications while maintaining excellent performance and developer experience.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

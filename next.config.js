@@ -26,6 +26,19 @@ const nextConfig = {
 
     return config
   },
+  async headers() {
+    return [
+      {
+        source: '/mockServiceWorker.js',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, must-revalidate'
+          }
+        ]
+      }
+    ]
+  },
   redirects: async () => {
     return [
       {

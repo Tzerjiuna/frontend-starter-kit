@@ -19,3 +19,4 @@ jest.config.js
 .env
 docker-compose.yml
 src/components/Icons.tsx
+src/mocks/handlers/

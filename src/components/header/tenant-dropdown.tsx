@@ -26,10 +26,6 @@ const TenantDropdown = () => {
     )
   }
 
-  const handleSwitchTenant = () => {
-    sessionStorage.setItem('returnURL', window.location.pathname + window.location.search)
-  }
-
   return (
     <Dropdown
       dropdownRender={dropdownRender}
@@ -37,11 +33,7 @@ const TenantDropdown = () => {
         items: [
           {
             key: 'switch-tenant',
-            label: (
-              <Link href="/tenant" onClick={handleSwitchTenant}>
-                {t('header:switchTenant')}
-              </Link>
-            )
+            label: <Link href="/">{t('header:switchTenant')}</Link>
           }
         ]
       }}

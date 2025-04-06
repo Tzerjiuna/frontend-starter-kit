@@ -11,6 +11,7 @@ export default async function Page({ params: { lng } }: { params: ParamProps }) 
       <div className="flex justify-between">
         <h1 className="text-lg font-semibold my-auto">TENANT USER PAGE</h1>
       </div>
+
       <hr />
       <Link href="/">{t('actions.back', { ns: 'common' })} to Home</Link>
     </div>

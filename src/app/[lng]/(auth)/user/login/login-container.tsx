@@ -3,7 +3,6 @@
 import { Button } from 'antd'
 import { useParams } from 'next/navigation'
 
-import { addBasePathPrefix } from '@/helpers/basePath'
 import { useClientTranslation } from '@/i18n/client'
 
 export default function LoginContainer() {
@@ -12,7 +11,7 @@ export default function LoginContainer() {
   const { t } = useClientTranslation(lng, 'auth')
 
   const handleLogin = async () => {
-    window.location.replace(addBasePathPrefix('/api/auth/mfid/login'))
+    window.location.assign('/api/auth/mfid/login')
   }
 
   return (
