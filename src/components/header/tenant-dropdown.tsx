@@ -2,7 +2,7 @@
 
 import { Button, Dropdown } from 'antd'
 import Link from 'next/link'
-import { ReactNode, useState } from 'react'
+import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ChevronDownIcon } from '../icons'
@@ -26,27 +26,19 @@ const TenantDropdown = () => {
     )
   }
 
-  const handleSwitchTenant = () => {
-    sessionStorage.setItem('returnURL', window.location.pathname + window.location.search)
-  }
-
   return (
     <Dropdown
-      overlayStyle={{ width: 300 }}
+      dropdownRender={dropdownRender}
       menu={{
         items: [
           {
             key: 'switch-tenant',
-            label: (
-              <Link href="/tenant" onClick={handleSwitchTenant}>
-                {t('header:switchTenant')}
-              </Link>
-            )
+            label: <Link href="/">{t('header:switchTenant')}</Link>
           }
         ]
       }}
+      overlayStyle={{ width: 300 }}
       placement="topRight"
-      dropdownRender={dropdownRender}
       trigger={['click']}
     >
       <div className="header-dropdown">

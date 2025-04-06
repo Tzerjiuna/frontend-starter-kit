@@ -1,0 +1,13 @@
+.app-table {
+  .ant-table-tbody {
+    td.tcell-text-right {
+      text-align: right;
+    }
+
+    .long-text {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+}

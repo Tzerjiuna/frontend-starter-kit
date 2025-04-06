@@ -20,44 +20,12 @@
   }
 }
 
-// .app-layout-content {
-//   max-height: 100%;
-//   overflow: auto;
-// }
-
-// .layout {
-//   height: calc(100vh - 42px);
-// }
-
 .content-header {
   padding: 8px 16px;
 }
 
-// .container {
-//   max-width: 960px;
-//   width: 100%;
-//   margin: auto;
-
-//   &-md {
-//     max-width: 600px;
-//   }
-// }
-
-// .layout-wrapper {
-//   background: $white;
-// }
-
 .page-title {
   min-height: 32px;
-
-  // .btn-back {
-  //   margin-right: 8px;
-  //   padding: 5px;
-
-  //   > span {
-  //     font-size: $s-13; // should recheck
-  //   }
-  // }
 
   .title {
     font-size: $s-18;
@@ -71,8 +39,3 @@
     color: $suva-grey;
   }
 }
-
-// .app-spin,
-// .app-spin .ant-spin-container {
-//   height: 100%;
-// }

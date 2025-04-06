@@ -11,6 +11,7 @@ import Notification from '/public/icons/header/notification.svg'
 import ChevronLeft from '/public/icons/chevron-left.svg'
 import Setting from '/public/icons/sider/setting.svg'
 import User from '/public/icons/sider/user.svg'
+import Post from '/public/icons/sider/post.svg'
 
 type CustomIconComponentProps = GetProps<typeof Icon>;
 
@@ -44,4 +45,8 @@ export const SettingIcon = (props: Partial<CustomIconComponentProps>) => {
 
 export const UserIcon = (props: Partial<CustomIconComponentProps>) => {
   return <Icon component={User} {...props} />
+}
+
+export const PostIcon = (props: Partial<CustomIconComponentProps>) => {
+  return <Icon component={Post} {...props} />
 }

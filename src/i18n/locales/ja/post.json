@@ -1,0 +1,33 @@
+{
+  "columns": {
+    "author": "著者",
+    "content": "内容",
+    "createdDate": "作成日",
+    "createdUser": "作成者",
+    "postStatus": "投稿ステータス",
+    "postType": "投稿タイプ",
+    "tags": "タグ",
+    "title": "タイトル"
+  },
+  "fields": {
+    "author": "著者",
+    "content": "内容",
+    "tags": "タグ",
+    "title": "タイトル"
+  },
+  "message": {
+    "deleteError": "投稿の削除に失敗しました",
+    "deleteSuccess": "投稿の削除に成功しました"
+  },
+  "pageTitle": {
+    "addPost": "投稿を追加",
+    "editPost": "投稿を編集",
+    "postList": "投稿"
+  },
+  "placeholder": {
+    "author": "著者",
+    "content": "内容",
+    "tags": "タグ",
+    "title": "タイトル"
+  }
+}

@@ -1,19 +1,21 @@
-import { ItemType } from 'antd/es/menu/hooks/useItems'
+import { MenuProps } from 'antd'
 import { useTranslation } from 'react-i18next'
 
-import { SettingIcon, UserIcon } from '../icons'
+import { AnnouncementIcon, PostIcon, SettingIcon, UserIcon } from '../icons'
 import { RouteConfig } from '@/helpers/routeConfig'
-
-// *** Base path ***
-// - If menu has only 1 section and has multiple routes, master section
-// will be implement by format: `[basePath].{pageName}`
-// - If menu has multiple children sections and each children section has multiple routes,
-// each children master section will be implement by format: `[basePath]/{sectionName}.{pageName}`
 
 export const routeConfigs: RouteConfig[] = [
   {
-    key: 'users',
-    path: '/users'
+    key: 'post',
+    path: '/post'
+  },
+  {
+    key: 'announcement',
+    path: '/announcements'
+  },
+  {
+    key: 'user',
+    path: '/user'
   },
   {
     key: 'settings',
@@ -27,11 +29,21 @@ const RenderLabel = ({ langKey }: { langKey: string }) => {
   return <span key={langKey}>{t(langKey)}</span>
 }
 
-export const navItems: ItemType[] = [
+export const navItems: MenuProps['items'] = [
   {
-    key: 'users',
+    key: 'post',
+    icon: <PostIcon className="sider-icon" />,
+    label: <RenderLabel langKey="post" />
+  },
+  {
+    key: 'announcement',
+    icon: <AnnouncementIcon className="sider-icon" />,
+    label: <RenderLabel langKey="announcement" />
+  },
+  {
+    key: 'user',
     icon: <UserIcon className="sider-icon" />,
-    label: <RenderLabel langKey="users" />
+    label: <RenderLabel langKey="user" />
   },
   {
     key: 'settings',

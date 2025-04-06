@@ -1,9 +1,9 @@
 import { useTranslation } from '@/i18n'
 import Link from 'next/link'
 
-import { paramProps } from '@/types/common'
+import { ParamProps } from '@/types/common'
 
-export default async function Page({ params: { lng } }: { params: paramProps }) {
+export default async function Page({ params: { lng } }: { params: ParamProps }) {
   const { t } = await useTranslation(lng, ['common'])
 
   return (

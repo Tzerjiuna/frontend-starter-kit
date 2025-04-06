@@ -1,0 +1,21 @@
+.form-error-message {
+  margin: 8px 0;
+  color: $error-color;
+  font-size: 13px;
+}
+
+.app-form {
+  &.left-label {
+    .ant-form-item .ant-form-item-label {
+      text-align: start !important;
+    }
+  }
+
+  .ant-form-item {
+    margin-bottom: 10px !important;
+
+    .ant-form-item-label > label {
+      font-size: $s-14;
+    }
+  }
+}

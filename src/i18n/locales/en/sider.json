@@ -1,4 +1,6 @@
 {
+  "announcement": "Announcements",
+  "post": "Post",
   "settings": "Settings",
-  "users": "Users"
+  "user": "User"
 }

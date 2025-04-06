@@ -1,19 +1,25 @@
 'use client'
 
-import { Col, Row } from 'antd'
+import { Button } from 'antd'
+import { usePathname, useRouter } from 'next/navigation'
 
-const PageTitle = ({ title, subTitle }: { title: string; subTitle?: string }) => {
+import { useClientTranslation } from '@/i18n/client'
+
+const PageTitle = ({ title, lng, prevPathName }: { title: string; lng: string; prevPathName?: string }) => {
+  const { t } = useClientTranslation(lng)
+  const router = useRouter()
+  const pathname = usePathname().split('/')[2]
+
   return (
-    <Row className="page-title" align="middle">
-      <Col>
-        <h1 className="title">{title}</h1>
-      </Col>
-      {subTitle && (
-        <Col>
-          <span className="sub-title">{subTitle}</span>
-        </Col>
-      )}
-    </Row>
+    <>
+      <div className="flex items-center">
+        <Button type="link" onClick={() => router.push(prevPathName || `/${pathname}`)}>
+          ＜{t('common:actions.back')}
+        </Button>
+
+        <h1 className="my-auto">{title}</h1>
+      </div>
+    </>
   )
 }
 

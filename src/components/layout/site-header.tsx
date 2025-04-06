@@ -19,8 +19,8 @@ export function SiteHeader() {
         <div className="flex">
           <GridIcon className="btn-icon" />
           <Divider className="logo-divider" type="vertical" />
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Image src="/logo-header.svg" width={232} height={20} alt="Logo" />
+          <Link className="mr-6 flex items-center space-x-2" href="/">
+            <Image alt="Logo" height={20} src="/logo-header.svg" width={232} />
           </Link>
         </div>
 

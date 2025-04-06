@@ -1,0 +1,19 @@
+{
+  "columns": {
+    "isDisplay": "表示",
+    "isEmphasize": "強調",
+    "no": "番号",
+    "order": "順序",
+    "publishAt": "公開日",
+    "title": "タイトル"
+  },
+  "pageTitle": {
+    "announcements": "お知らせ"
+  },
+  "status": {
+    "display": "表示",
+    "emphasize": "強調",
+    "hidden": "非表示",
+    "normal": "通常"
+  }
+}

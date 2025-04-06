@@ -1,9 +1,10 @@
-import { ObjectSchema } from 'yup'
+import { z } from 'zod'
 
-declare module 'yup' {
-  interface ObjectSchema {
-    dayjs(message: string): ObjectSchema<Dayjs>
-    pastTime(message: string): ObjectSchema<Dayjs>
+// Extend Zod with custom methods
+declare module 'zod' {
+  interface ZodType {
+    dayjs(message: string): z.ZodType
+    pastTime(message: string): z.ZodType
   }
 }
 

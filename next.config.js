@@ -26,6 +26,19 @@ const nextConfig = {
 
     return config
   },
+  async headers() {
+    return [
+      {
+        source: '/mockServiceWorker.js',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, must-revalidate'
+          }
+        ]
+      }
+    ]
+  },
   redirects: async () => {
     return [
       {
@@ -37,8 +50,30 @@ const nextConfig = {
   },
   reactStrictMode: process.env.APP_ENV === 'development' ? false : true,
   output: 'standalone',
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**'
+      }
+    ]
+  },
   experimental: {
-    instrumentationHook: true
+    instrumentationHook: true,
+    serverActions: {
+      bodySizeLimit: '2mb'
+    }
+  },
+  optimizeFonts: false,
+  swcMinify: true,
+  compiler: {
+    removeConsole:
+      process.env.NODE_ENV === 'production'
+        ? {
+            exclude: ['error', 'warn']
+          }
+        : false
   },
   ...sassConfig
 }

@@ -31,14 +31,14 @@ const InputNumber = ({
         <div className="app-input">
           <AntdInputNumber
             {...restField}
-            data-testid={testId}
-            placeholder={placeholder}
             className={classNames(className, { error: !!error })}
-            style={{ width: 210 }}
+            data-testid={testId}
             disabled={disabled || isSubmitting}
-            min={min || undefined}
             max={max || undefined}
+            min={min || undefined}
             parser={value => value && value.replace(/[^\d]/g, '')}
+            placeholder={placeholder}
+            style={{ width: 210 }}
             onChange={event => {
               onFieldChange(event)
               onChange?.(event)

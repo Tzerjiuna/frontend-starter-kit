@@ -1,8 +1,8 @@
 import { useTranslation } from '@/i18n'
 
-import { paramProps } from '@/types/common'
+import { ParamProps } from '@/types/common'
 
-export default async function IndexPage({ params: { lng } }: { params: paramProps }) {
+export default async function IndexPage({ params: { lng } }: { params: ParamProps }) {
   const { t } = await useTranslation(lng)
 
   return (

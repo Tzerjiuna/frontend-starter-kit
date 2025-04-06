@@ -1,7 +1,11 @@
-import { HttpHandler } from 'msw'
+import { announcementHandlers } from './announcement'
+import { authHandlers } from './auth'
+import { postHandlers } from './post'
 
-import mfidHandlers from './mfid-handlers'
-
-const handlers: HttpHandler[] = [...mfidHandlers]
-
-export default handlers
+// Define your handlers here
+// Spread all handler arrays into this single array
+export const handlers = [
+  ...postHandlers,
+  ...announcementHandlers,
+  ...authHandlers,
+]

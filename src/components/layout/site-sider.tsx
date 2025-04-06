@@ -21,7 +21,7 @@ export function SiteSider({ lng }: { lng: string }) {
   useEffect(() => {
     const { selectedKeys } = getHighlightRoute(lng, pathname, routeConfigs)
     selectedKeys && setSelectedKeys(selectedKeys)
-  }, [pathname])
+  }, [pathname, lng])
 
   const handleMenuClick: MenuProps['onClick'] = item => {
     const selected = routeConfigs.find(nav => nav.key === item.key)
@@ -36,19 +36,19 @@ export function SiteSider({ lng }: { lng: string }) {
 
   return (
     <Sider
-      className="sider-menu"
-      collapsedWidth="50"
       collapsible
+      className="sider-menu"
       collapsed={collapsed}
-      onCollapse={value => setCollapsed(value)}
+      collapsedWidth="50"
       trigger={
         <div className="btn-toggle-sider">
           <ChevronLeftIcon />
           <span className="btn-toggle-sider-text">{t('actions.close')}</span>
         </div>
       }
+      onCollapse={value => setCollapsed(value)}
     >
-      <Menu theme="dark" mode="inline" selectedKeys={selectedKeys} items={navItems} onClick={handleMenuClick} />
+      <Menu items={navItems} mode="inline" selectedKeys={selectedKeys} theme="dark" onClick={handleMenuClick} />
     </Sider>
   )
 }

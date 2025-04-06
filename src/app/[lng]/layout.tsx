@@ -2,15 +2,15 @@ import '@/styles/init.scss'
 import { App, Layout } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 import { Metadata } from 'next'
+import NextTopLoader from 'nextjs-toploader'
 
 import Hydration from './hydration'
 import { AntdConfigProvider, AntdProvider } from './providers'
 import { SiteHeader } from '@/components/layout/site-header'
 import { SiteSider } from '@/components/layout/site-sider'
 import { siteConfig } from '@/config/site'
-import { fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
-import { paramProps } from '@/types/common'
+import { ParamProps } from '@/types/common'
 
 export const metadata: Metadata = {
   title: {
@@ -25,15 +25,14 @@ export default async function RootLayout({
   params: { lng }
 }: {
   children: React.ReactNode
-  params: paramProps
+  params: ParamProps
 }) {
   return (
-    <html lang={lng} suppressHydrationWarning>
+    <html suppressHydrationWarning lang={lng}>
       <head />
-      <body
-        className={cn('bg-background font-sans antialiased overflow-y-hidden', fontSans.variable)}
-        suppressHydrationWarning
-      >
+      <body suppressHydrationWarning className={cn('bg-background font-sans antialiased overflow-y-hidden')}>
+        <NextTopLoader showSpinner={false} />
+
         <AntdProvider>
           <AntdConfigProvider>
             <Hydration>

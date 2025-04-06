@@ -10,11 +10,10 @@ const TextEllipsisMiddle: React.FC<{
   const suffix = children.slice(-suffixCount).trim()
 
   return children.length >= suffixCount ? (
-    <Text style={{ maxWidth: '100%' }} ellipsis={{ suffix }}>
+    <Text ellipsis={{ suffix }} style={{ maxWidth: '100%' }}>
       {start}
     </Text>
   ) : (
-    // Fallback
     <Text ellipsis>{children}</Text>
   )
 }

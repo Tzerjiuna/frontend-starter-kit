@@ -1,6 +1,8 @@
 import { DatePickerProps } from 'antd/es/date-picker'
+import { SelectProps } from 'antd/es/select'
+import { Dayjs } from 'dayjs'
 import { ChangeEvent } from 'react'
-import { ControllerProps } from 'react-hook-form'
+import { Control, ControllerProps, FieldValues } from 'react-hook-form'
 
 interface BaseFormControl {
   name: string
@@ -8,7 +10,7 @@ interface BaseFormControl {
   width?: number
   testId?: string
   disabled?: boolean
-  control: ControllerProps<any>['control']
+  control: Control<FieldValues, unknown>
   showError?: boolean
   validationRules?: ControllerProps['rules']
 }
@@ -19,9 +21,9 @@ export interface IDatePicker extends BaseFormControl {
   disabledDate?: DatePickerProps['disabledDate']
   showTime?: boolean
   getPopupContainer?: DatePickerProps['getPopupContainer']
-  cellRender?: any // DatePickerProps['cellRender']
+  cellRender?: DatePickerProps<Dayjs>['cellRender']
   placeholder?: string
-  onChange?: (event: any) => void
+  onChange?: (event: Dayjs | null) => void
 }
 
 export interface IDateRangePicker extends Omit<IDatePicker, 'placeholder'> {
@@ -36,4 +38,8 @@ export interface IInput extends BaseFormControl {
 export interface IInputNumber extends IInput {
   min?: number
   max?: number
+}
+
+export interface ITag extends IInput {
+  options?: SelectProps['options']
 }

@@ -1,0 +1,33 @@
+{
+  "columns": {
+    "author": "Author",
+    "content": "Content",
+    "createdDate": "Created Date",
+    "createdUser": "Created User",
+    "postStatus": "Post Status",
+    "postType": "Post Type",
+    "tags": "Tags",
+    "title": "Title"
+  },
+  "fields": {
+    "author": "Author",
+    "content": "Content",
+    "tags": "Tags",
+    "title": "Title"
+  },
+  "message": {
+    "deleteError": "Failed to delete post",
+    "deleteSuccess": "Delete post successfully"
+  },
+  "pageTitle": {
+    "addPost": "Add Post",
+    "editPost": "Edit Post",
+    "postList": "Posts"
+  },
+  "placeholder": {
+    "author": "Author",
+    "content": "Content",
+    "tags": "Tags",
+    "title": "Title"
+  }
+}
